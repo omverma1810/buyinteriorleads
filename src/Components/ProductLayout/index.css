@@ -1,0 +1,132 @@
+.product-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+  background: #f5f5f5;
+  min-height: auto;
+}
+
+.heading {
+  font-size: 50px;
+  font-weight: 400;
+  margin-bottom: 20px;
+  color: #1E485B;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+  overflow: hidden;
+}
+
+.product-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.product-card:hover {
+  transform: scale(1.05);
+}
+
+.product-image {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+}
+
+.product-details {
+  gap: 15px;
+  padding: 10px;
+}
+
+.product-name {
+  font-size: 18px;
+  font-weight: 600;
+  color: #222;
+  margin: 0;
+  padding-bottom: 2px;
+}
+
+.product-location {
+  gap: 2px;
+  display: flex;
+  align-items: center;
+  padding: 5px 0px;
+}
+
+.location-text {
+  margin: 0;
+  color: #777;
+  font-size: 12px;
+}
+
+.product-price {
+  display: flex;
+  gap: 5px;
+  padding: 5px 0px;
+  align-items: baseline;
+}
+
+.discount-price {
+  color: #777;
+  font-size: 16px;
+  margin: 0;
+}
+
+.original-price {
+  color: #777;
+  font-size: 13px;
+  margin: 0;
+  text-decoration: line-through;
+}
+
+.button-container {
+  width: 100%;
+  background-color: purple;
+  overflow: hidden;
+  border-radius: 5px;
+}
+
+.add-to-cart-button {
+  background-color: #1E485B;
+  padding-left: 18px;
+  padding-right: 18px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  border-width: 0;
+  border-radius: 5px;
+  color: white;
+  width: 100%;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  cursor: pointer;
+}
+.like-P{
+  justify-content: space-between;
+  flex-direction: row;
+  display: flex;
+  padding: 5px 10px;
+}
+
+
+@media (max-width: 458px) {
+    .heading {
+  font-size: 1.8rem;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+}
+
+}

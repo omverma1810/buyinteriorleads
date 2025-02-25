@@ -1,0 +1,50 @@
+.sidebar {
+    background-color: white;
+    border-right: 1px solid #e5e7eb;
+    padding: 1.5rem;
+}
+
+.logo {
+    font-family: 'Pacifico', cursive;
+    font-size: 1.5rem;
+    color: #4F46E5;
+    margin-bottom: 2.5rem;
+}
+
+.nav-links-Profile{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.nav-link-Profile {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    color: #6B7280;
+    text-decoration: none;
+}
+
+.nav-link.active {
+    background-color: #4f46e50d;
+    text-decoration: none;
+    /* color: #4F46E5; */
+}
+
+.nav-link:hover {
+    background-color: #f9fafb;
+}
+
+@media (max-width: 458px) {
+
+    .profile-grid {
+    display: flex;
+    flex-direction: column;
+}
+.nav-links-Profile{
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+}

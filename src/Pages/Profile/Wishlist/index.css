@@ -1,0 +1,24 @@
+.Wishlist-conatiner{
+    height: 85vh;
+}
+
+.empty-state-wishlist{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70vh;
+    flex-direction: column;
+
+}
+
+.empty-title-wishlist{
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #111827;
+  margin-bottom: 0.5rem;
+}
+
+.empty-description-wishlist {
+  color: #6b7280;
+  margin-bottom: 1.5rem;
+}

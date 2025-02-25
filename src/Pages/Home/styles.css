@@ -1,0 +1,151 @@
+.main-content {
+  padding-top: 5rem;
+}
+
+
+.container-hero{
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: calc(100vh - 5rem);
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: url('https://public.readdy.ai/ai/img_res/1355cdada2da37e0ceaeaf119e3f7400.jpg') no-repeat center center/cover;
+  opacity: 0.05;
+}
+
+.hero-content {
+  max-width: 600px;
+  z-index: 1;
+}
+
+.hero-content h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #2C3E50;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  color: #4A4A4A;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.start-now, .learn-more {
+  padding: 0.8rem 2rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.start-now {
+  background: #2C3E50;
+  color: white;
+  border: none;
+}
+
+.start-now:hover {
+  background: rgba(44, 62, 80, 0.9);
+}
+
+.learn-more {
+  background: white;
+  color: #2C3E50;
+  border: 2px solid #2C3E50;
+}
+
+.learn-more:hover {
+  background: #2C3E50;
+  color: white;
+}
+
+.stats {
+  display: flex;
+  gap: 2rem;
+  padding-top: 1.5rem;
+}
+
+.stat-value {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #2C3E50;
+}
+
+.stat-label {
+  color: #4A4A4A;
+}
+
+.hero-image img {
+  width: 100%;
+  max-height: 600px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.heading-gallery{
+      color: #1E485B;
+    font-size: 50px;
+    font-weight: 400;
+    text-align: center;
+
+}
+
+
+@media (max-width: 458px) {
+  
+  
+  .main-content {
+    margin: 0px;
+    padding: 0px;
+  }
+
+  .container-hero {
+    display: flex;
+    flex-direction: column;
+    padding: 0px 15px;
+    padding-bottom: 20px;
+  }
+
+  .hero-content {
+    padding-top: 90px;
+    padding-bottom: 30px;
+  } 
+  .hero {
+    width: 100%;
+  }
+
+  .start-now, .learn-more {
+    padding: 0.5rem 1.7rem;
+    font-size: 1rem;
+  }
+
+  .stat-value {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #2C3E50;
+  }
+
+  .stat-label {
+    font-size: 1.1rem;
+  }
+
+  
+
+}
