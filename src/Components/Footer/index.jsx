@@ -33,6 +33,8 @@ const Footer = () => {
     console.log('Form submitted:', formData);
   };
 
+  const isLoggedIn = localStorage.getItem("accessToken");
+
   return (
     <footer className="footer">
         <div className='footer-container'>
@@ -41,44 +43,59 @@ const Footer = () => {
                     <h2>Transforming Spaces, Elevating Interiors</h2>
                 </div>
             </div>
-            {/* <div className="footer-form">
-                <div style={{marginTop:-10}}>
-                <h1>Lets Talk</h1>
-                <form onSubmit={handleSubmit}>
-                    <div className='footer-input'>
-                        <input type="text" name="name" placeholder="Your Name" value={formData.name} onChange={handleChange} required />
-                        <input type="email" name="email" placeholder="Your Email" value={formData.email} onChange={handleChange} required />
-                    </div>
-                    <textarea name="message" placeholder="Your Message" value={formData.message} onChange={handleChange} required></textarea>
-                    <button type="submit">Submit</button>
-                </form>
-                </div>
-            </div> */}
             <div className="footer-links">
+                
                 <ul>
-                    <li><Link className="name" to="/" style={{
-                    textDecoration: 'none',
-                    color: 'inherit',
-                }}>
-                    Home
-                </Link></li>
-                    <li><Link className='name' to="/about" style={{
-                                        textDecoration: 'none',
-                                        color: 'inherit'
-                                    }}>About</Link></li>
-                    <li><Link className='name' to="/location" style={{
-                                        textDecoration: 'none',
-                                        color: 'inherit'
-                                    }}>Locations</Link></li>
-                    <li><Link className='name' to='RefundPolicy' style={{
-                                        textDecoration: 'none',
-                                        color: 'inherit'
-                                    }}>Refund Policy</Link></li>
-                    <li><Link className='name' to='/Privacypolicy' style={{
-                                        textDecoration: 'none',
-                                        color: 'inherit'
-                                    }}>Privacy Policy</Link></li>
-                    <li><a href="#">My Account</a></li>
+                    <li>
+                      <Link className="name" to="/" style={{
+                        textDecoration: 'none',
+                        color: 'inherit',
+                      }}>
+                        Home
+                      </Link>
+                    </li>
+                    <li>
+                      <Link className='name' to="/about" style={{
+                            textDecoration: 'none',
+                            color: 'inherit'
+                        }}>
+                          About
+                      </Link>
+                    </li>
+                    <li>
+                      <Link className='name' to="/location" style={{
+                            textDecoration: 'none',
+                            color: 'inherit'
+                        }}>
+                          Locations
+                      </Link>
+                    </li>
+                    <li>
+                      <Link className='name' to='RefundPolicy' style={{
+                            textDecoration: 'none',
+                            color: 'inherit'
+                        }}>
+                          Refund Policy
+                      </Link>
+                    </li>
+                    <li>
+                      <Link className='name' to='/Privacypolicy' style={{
+                            textDecoration: 'none',
+                            color: 'inherit'
+                        }}>
+                          Privacy Policy
+                      </Link>
+                    </li>
+                    {isLoggedIn ? (
+                        <Link to="/Profile" className="profile-icon">
+                          My Account
+
+                        </Link>
+                    ) : (
+                        <Link to="/SignIn">
+                          My Account
+                        </Link>
+                    )}                
                 </ul>
             </div>
         </div>

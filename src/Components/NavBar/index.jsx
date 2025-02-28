@@ -3,11 +3,6 @@ import './NavBar.css'
 
 import { Link } from "react-router-dom";
 const Index = () => {
-    // const styles = {
-    //     ul: {
-    //         fle
-    //     }
-    //   };
 
     return (
         <div style={{}}>
