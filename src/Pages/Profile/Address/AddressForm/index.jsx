@@ -7,7 +7,7 @@ const AddressForm = ({ onClose }) => {
     first_name: "",
     last_name: "",
     company_name: "",
-    street_addres: "",
+    street_address: "",
     city: "",
     state: "",
     country: "India",
@@ -119,8 +119,8 @@ const AddressForm = ({ onClose }) => {
               <label className="form-label">Street Address</label>
               <input
                 type="text"
-                name="street_addres"
-                value={formData.street_addres}
+                name="street_address"
+                value={formData.street_address}
                 onChange={handleChange}
                 required
                 className="form-input"

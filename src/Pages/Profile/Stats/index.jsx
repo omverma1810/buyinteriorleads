@@ -10,7 +10,7 @@ import {DataContext} from '../ContextAPI'
 
 const Stats = () => {
 
-    const { wishlist, loading, error , orders , cart } = useContext(DataContext);
+    const { wishlist, loading, error , orders , cart  } = useContext(DataContext);
     return (
 
         <div className="stats-grid">

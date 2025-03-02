@@ -21,7 +21,6 @@ export const DataProvider = ({ children }) => {
     const accessToken = localStorage.getItem("accessToken");
 
     if (!accessToken) {
-      // Handle the case where accessToken is not available
       console.log("Access token is not available");
       return;
     }
@@ -30,12 +29,11 @@ export const DataProvider = ({ children }) => {
       try {
         // Fetch orders
         const ordersResponse = await fetch(
-          "https://buyinteriorapp-d0adf77e7c33.herokuapp.com/api/profile/"
+          "https://buyinteriorapp-d0adf77e7c33.herokuapp.com/api/orders/"
         );
         const ordersData = await ordersResponse.json();
         setOrders(ordersData);
 
-        // Fetch wishlist
         const wishlistResponse = await fetch(
           "https://buyinteriorapp-d0adf77e7c33.herokuapp.com/api/wishlists/",
           {
@@ -51,7 +49,14 @@ export const DataProvider = ({ children }) => {
 
         // Fetch cart
         const cartResponse = await fetch(
-          "https://buyinteriorapp-d0adf77e7c33.herokuapp.com/api/cart/"
+          "https://buyinteriorapp-d0adf77e7c33.herokuapp.com/api/cart/",
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+              "Content-Type": "application/json",
+            },
+          }
         );
         const cartData = await cartResponse.json();
         setCart(cartData);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState , useContext } from 'react';
 import Sidebar from './SideBar';
 import Header from './Header';
 import Stats from './Stats';
@@ -14,6 +14,7 @@ import { DataProvider } from './ContextAPI';
 const App = () => {
     const [showDropdown, setShowDropdown] = useState(false);
     const [activePage, setActivePage] = useState('dashboard');
+
 
     const toggleDropdown = () => {
         setShowDropdown(!showDropdown);

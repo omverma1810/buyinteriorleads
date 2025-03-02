@@ -8,14 +8,14 @@ import ProductDisplay from '../../../Components/ProductLayout';
 
 const WishList = () => {
 
-      const {  WishList } = useContext(DataContext);
+    const { wishlist, loading, error , orders , cart } = useContext(DataContext);
 
-      const WisList = 0
+
+    console.log('check',wishlist.length)
+
     return (
       <div className="Wishlist-conatiner">
-        {WisList.length === 0 ? (
-                      <ProductDisplay products={WishList} />
-        ) : (
+        {wishlist.length === 0 ? (
           <div className="empty-state-wishlist">
             <h3 className="empty-title-wishlist">No Wishlists found</h3>
             <p className="empty-description-wishlist">
@@ -28,6 +28,8 @@ const WishList = () => {
               Add New Leads
             </button>
           </div>
+        ) : (
+            <ProductDisplay products={wishlist} />
         )}
       </div>
     );
