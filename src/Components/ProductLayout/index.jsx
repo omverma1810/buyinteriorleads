@@ -18,38 +18,41 @@ export default function ProductDisplay({ products }) {
   };
 
 
-  const userId = localStorage.getItem("userId");
+  const userId = Number(localStorage.getItem("userId"));
   const accessToken = localStorage.getItem("accessToken");
 
   const handleLikeSubmit = async (e) => {
     e.preventDefault();
+    e.stopPropagation();
 
     if (!userId || !accessToken) {
       alert("User is not authenticated. Please log in.");
       return;
     }
 
+    const payload = {user_id: userId , lead_id: products.id }
+
     try {
       const response = await fetch(
-        "https://buyinteriorapp-d0adf77e7c33.herokuapp.com/api/wishlists/",
+        `https://buyinteriorapp-d0adf77e7c33.herokuapp.com/api/wishlists/?user_id=${userId}`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${accessToken}`,
           },
-          body: JSON.stringify('adata'),
+          body: JSON.stringify(payload),
         }
       );
 
       if (response.ok) {
         alert("Lead Liked successfully!");
         setLiked(true)
-        onClose(); 
+        // onClose(); 
       } else {
         const errorData = await response.json();
         alert(
-          `Failed to save address (Error ${response.status}): ${errorData.message || "Unknown error"}`
+          `Failed to save Lead (Error ${response.status}): ${errorData.message || "Unknown error"}`
         );
       }
     } catch (error) {

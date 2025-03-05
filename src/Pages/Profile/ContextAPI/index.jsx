@@ -19,6 +19,7 @@ export const DataProvider = ({ children }) => {
   useEffect(() => {
 
     const accessToken = localStorage.getItem("accessToken");
+    const userId = localStorage.getItem("userId")
 
     if (!accessToken) {
       console.log("Access token is not available");
@@ -49,7 +50,7 @@ export const DataProvider = ({ children }) => {
 
         // Fetch cart
         const cartResponse = await fetch(
-          "https://buyinteriorapp-d0adf77e7c33.herokuapp.com/api/cart/",
+          `https://buyinteriorapp-d0adf77e7c33.herokuapp.com/api/cart/?user_id=${userId}`,
           {
             method: "GET",
             headers: {
@@ -91,19 +92,19 @@ export const DataProvider = ({ children }) => {
         const AddressData = await AddressResponse.json();
         setAddress(AddressData);
 
-        const WishListResponse = await fetch(
-          "https://buyinteriorapp-d0adf77e7c33.herokuapp.com/api/wishlists/",
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        console.log("response", WishListResponse);
-        const WishListData = await WishListResponse.json();
-        setAddress(WishListData);
+        // const WishListResponse = await fetch(
+        //   "https://buyinteriorapp-d0adf77e7c33.herokuapp.com/api/wishlists/",
+        //   {
+        //     method: "GET",
+        //     headers: {
+        //       Authorization: `Bearer ${accessToken}`,
+        //       "Content-Type": "application/json",
+        //     },
+        //   }
+        // );
+        // console.log("response", WishListResponse);
+        // const WishListData = await WishListResponse.json();
+        // setAddress(WishListData);
       } catch (err) {
         setError(err.message);
       } finally {

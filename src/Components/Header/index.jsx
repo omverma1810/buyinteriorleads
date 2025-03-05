@@ -72,14 +72,16 @@ const CartAndButton = () => {
     return (
 
         <div className="cart-btn-container">
-            <div className="cart-icon" id="cartIcon">
-                <CiHeart size={30}/>
-                <span className="cart-count">3</span>
-            </div>
             {isLoggedIn ? (
-                <Link to="/Profile" className="profile-icon">
-                    <CiUser size={30} /> {/* Show Profile Icon when logged in */}
-                </Link>
+                <div style={{flexDirection:'row', gap:10 , display:'flex' , alignItems:'center'}}>
+                    <div className="cart-icon" id="cartIcon">
+                        <CiHeart size={30}/>
+                        <span className="cart-count">3</span>
+                    </div>
+                    <Link to="/Profile" className="profile-icon">
+                        <CiUser size={30} />
+                    </Link>
+                </div>
             ) : (
                 <Link to="/SignIn">
                     <button className="get-started">Get Started</button>

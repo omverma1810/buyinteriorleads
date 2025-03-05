@@ -4,6 +4,7 @@ import { GoArrowDown } from "react-icons/go";
 import { HiOutlineArrowLongDown } from "react-icons/hi2";
 
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 import HowItsWorks from './HowItsWorks'
 import Benefits from './Benefits'
@@ -28,6 +29,7 @@ const products = [
 const Index = () => {
 
     const [leads, setLeads] = useState([]);
+    const navigate = useNavigate(); 
 
     console.log('data',leads)
 
@@ -66,8 +68,8 @@ const Index = () => {
                 services.
               </p>
               <div className="hero-buttons">
-                <button className="start-now">Start Now</button>
-                <button className="learn-more">Learn More</button>
+                <button className="start-now" onClick={() => navigate('/location')}>Start Now</button>
+                <button className="learn-more" onClick={() => navigate('/about')}>Learn More</button>
               </div>
               <div className="stats">
                 <div>

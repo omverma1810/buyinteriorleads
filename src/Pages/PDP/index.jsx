@@ -16,7 +16,7 @@ const PropertyDetails = () => {
   const location = useLocation();
   const { product } = location.state || {};
 
-  const userId = localStorage.getItem("userId");
+  const userId = Number(localStorage.getItem("userId"));
   const accessToken = localStorage.getItem("accessToken");
 
 
@@ -28,20 +28,20 @@ const PropertyDetails = () => {
       return;
     }
 
-    const payload = {user: userId , id: product.id}
+    const payload = {user_id: userId , lead_id: product.id }
 
     console.log(payload)
 
     try {
       const response = await fetch(
-        "https://buyinteriorapp-d0adf77e7c33.herokuapp.com/api/wishlists/",
+        `https://buyinteriorapp-d0adf77e7c33.herokuapp.com/api/wishlists/?user_id=${userId}`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${accessToken}`,
           },
-          body: JSON.stringify('payload'),
+          body: JSON.stringify(payload),
         }
       );
 
@@ -70,25 +70,25 @@ const PropertyDetails = () => {
       return;
     }
 
-    const payload = {user: userId , id: product.id}
+    const payload = {user_id: userId , lead_id: product.id , quantity : 3 }
 
     console.log(payload)
 
     try {
       const response = await fetch(
-        "https://buyinteriorapp-d0adf77e7c33.herokuapp.com/api/wishlists/",
+        `https://buyinteriorapp-d0adf77e7c33.herokuapp.com/api/cart/?user_id=${userId}`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${accessToken}`,
           },
-          body: JSON.stringify('payload'),
+          body: JSON.stringify(payload),
         }
       );
 
       if (response.ok) {
-        alert("Lead Liked successfully!");
+        alert("Lead Added to Cart successfully!");
         // onClose(); 
       } else {
         const errorData = await response.json();
