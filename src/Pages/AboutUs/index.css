@@ -1,0 +1,161 @@
+.container-about{
+    margin-top: 4rem;
+    overflow: hidden;
+}
+.space{
+    padding-left: 4rem;
+    padding-right: 4rem;
+
+}
+ .sub-conatiner-abt{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    padding-top: 50px;
+} 
+.heading-container{
+    width: 70%;
+}
+.abt-heading{
+    font-weight: 400;
+    font-size: 5rem;
+    color: #1E485B;
+    line-height: 5.5rem;
+    margin-bottom: 0;
+}
+.abt-subheading{
+    font-weight: 300;
+    color: black;
+}
+.video-conatiner{
+    height: 90vh; 
+    overflow: hidden;
+    padding-top: 20px;
+    padding-bottom: 40px;
+}
+.container-featured{
+    width: 100vw;
+    background-color: #1E485B;
+    padding-left: 4rem;
+    padding-right: 4rem;
+    padding-top: 4rem;
+}
+.features-heading{
+    width: 65%;
+    margin-bottom: 3rem;
+}
+.featured-heading-text{
+    margin-bottom: 0;
+    color: #F5F5F6;
+    font-weight: 400;
+    font-size: 3rem;
+
+}
+.featured-items{
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    justify-content: space-between;
+    width: 85%;
+    row-gap: 4rem;
+    padding-bottom: 6rem;
+}
+.item-item{
+    width: 40%;
+}
+.sub-item-header{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin-bottom: 0.5rem;
+    gap: 20px;
+    width: 65%;
+}
+.item-text{
+    color: #F5F5F6;
+    font-weight: 400;
+    margin: 0;
+}
+.item-p{
+    color: #dcdcdd;
+    margin: 0;
+}
+.CTA{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.CTA-Text{
+    color: #1E485B;
+    font-weight: 400;
+    font-size: 3rem;
+    text-align: center;
+}
+
+
+@media (max-width: 458px) {
+
+    .space{
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 40px;
+
+}
+
+    .abt-heading{
+        font-size: 2.2rem;
+        line-height: 2.7rem;
+        padding-bottom: 10px;
+    }
+    .heading-container{
+    width: 100%;
+}
+.abt-subheading{
+    font-size: 1.1rem;
+}
+.container-featured{
+    width: 100vw;
+    background-color: #1E485B;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 1rem;
+}
+
+.video-conatiner{
+        height: 40vh; 
+}
+.features-heading{
+      width: 100%;
+}
+
+.featured-heading-text{
+    font-size: 1.7rem;
+    line-height: 1.7rem;
+
+}
+.featured-items{
+    flex-direction: column;
+    padding-left: 0rem;
+    padding-right: 0rem;
+    width: 93%;
+}
+.item-item{
+    width: 100%;
+}
+.sub-item-header{
+    width: 100%;
+        align-items: center;
+}
+.item-text{
+    font-size: 1.3rem;
+
+}
+.CTA-Text{
+    font-size: 1.7rem;
+    text-align: center;
+    padding: 20px 0px;
+}
+
+
+}

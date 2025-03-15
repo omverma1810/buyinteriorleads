@@ -1,0 +1,122 @@
+.checkout-container{
+  height: '100%';
+  width: '100%';
+  display: flex;
+  background-color: '#F9FAFB';
+  justify-content: center;
+  align-items: flex-start;
+  /* align-items: center; */
+  gap: 1rem;
+  padding-top: 100px;
+  padding-bottom: 10px;
+
+}
+.left-checkout{
+  width: 40%;
+  height: 'auto';
+  /* background-color: red; */
+  padding: 10px 10px;
+  border-width: 0.5px;
+  border-style: solid;
+  border-radius: 10px;
+}
+.right-checkout{
+  width: 40%;
+  height: 'auto';
+  padding: 10px 10px;
+  border-width: 0.5px;
+  border-style: solid;
+  border-radius: 10px;
+}
+.checkout-heading{
+  font-size: 1.3rem;
+  font-weight: 500;
+  padding: 10px 15px;
+}
+.checkout-address-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  width: 100%;
+  padding-bottom: 10px;
+}
+.checkout-selected{
+  border-width: 2px;
+  border-style: solid;
+  border-color: #173A4D;
+  pointer-events: none;
+}
+.Checkout-Lead-item{
+  background-color: white;
+  border-width: 0.5px;
+  border-style: solid;
+  padding: 10px 15px;
+  border-radius: 10px;
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 10px;
+}
+
+.Checkout-Lead-image{
+  width: 20%;
+  height: 10%;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.Quantity-price{
+  display: flex;
+ justify-content: space-between;
+
+}
+
+.quantity-selector {
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.quantity-btn {
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.quantity-btn:hover {
+  background-color: #f9f9f9;
+}
+
+.quantity-input {
+  width: 4rem;
+  text-align: center;
+  border: none;
+}
+
+.checkout-price{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+
+  @media (max-width: 458px) {
+    .checkout-container{
+      flex-direction: column;
+      padding: 0px 10px;
+      padding-top: 80px;
+    }
+    .left-checkout{
+      width: 100%;
+    }
+    .right-checkout{
+      width: 100%;
+    }
+
+  }

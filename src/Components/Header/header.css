@@ -1,0 +1,103 @@
+.navbar {
+    position: fixed;
+    width: 100%;
+    background: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 50;
+    padding: 1rem 0;
+  }
+  
+  .container-H {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .logo-header {
+    font-family: 'Pacifico', cursive;
+    color: #2C3E50;
+    background-color: purple;
+    width: 30%;
+    height: 40%;
+  }
+  
+  .nav-links a {
+    color: #4A4A4A;
+    text-decoration: none;
+    margin: 0 1rem;
+    transition: color 0.3s;
+  }
+  
+  .nav-links a:hover {
+    color: #2C3E50;
+  }
+  
+  .nav-actions {
+    display: flex;
+    align-items: center;
+  }
+
+  .cart-btn-container{
+    display: flex;
+  }
+  
+  .cart-icon {
+    position: relative;
+    cursor: pointer;
+    font-size: 1.5rem;
+    margin-right: 1rem;
+  }
+  
+  .cart-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #E67E22;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+  }
+  
+  .get-started {
+    background: #2C3E50;
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .get-started:hover {
+    background: rgba(44, 62, 80, 0.9);
+  }
+
+  .mobile-menu{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .logo-m{
+    width: 5%;
+    height: 5%;
+  }
+
+  @media (max-width: 458px) {
+      .logo-m{
+    width: 15%;
+    height: 15%;
+  }
+
+  }
+

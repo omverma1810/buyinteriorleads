@@ -1,0 +1,146 @@
+:root {
+    --bg-color: #f5f5f6;
+    --header-color: #1E485B;
+    --primary-color: #2c7da0;
+    --white: #ffffff;
+  }
+
+  .RP-conatiner{
+    /* height: 100vh; */
+    padding-top: 6rem;
+
+  }
+  .RP-left-panel {
+    color: black;
+    box-sizing: border-box;
+    padding-left: 4rem;
+    padding: 20px 4rem;
+  }
+  .RP-header-container{
+    display: flex;
+    align-items: center;
+    gap:15px
+  }
+  .RP-heading {
+    font-weight: 600;
+    color: #1E485B;
+    line-height: 7rem;
+    margin-bottom: 0;
+    font-size: 7rem;
+    padding-bottom: 20px;
+  }
+  .RP-left-panel p { 
+    font-size: 2rem;
+  }
+  .RP-main-container{
+    background-color: #1E485B;
+    padding-left: 4rem;
+    padding-right: 4rem;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+  .RP-Main-Header{
+    color: #ffffff;
+    font-weight: 400;
+    font-size: 2rem;
+  }
+  .RP-sub-container{
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
+  .refund-section {
+    background-color: var(--white);
+    margin-bottom: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .Refund-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1E485B;
+    color: var(--white);
+    padding: 15px 20px;
+    cursor: pointer;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: whitesmoke;
+  }
+  
+  .Refund-section-header h2 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 400;
+  }
+  
+  .chevron-icon {
+    transition: transform 0.5s ease;
+  }
+  
+  .chevron-icon.rotated {
+    transform: rotate(180deg);
+  }
+  
+  .refund-section-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out;
+  }
+  
+  .refund-section-content.open {
+    max-height: 500px;
+  }
+  
+  .refund-section-content .refund-content-inner {
+    padding: 20px;
+  }
+  
+  .refund-section-content ul {
+    padding-left: 20px;
+    margin: 10px 0;
+  }
+  
+  .refund-contact-section {
+    background-color: var(--white);
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+  }
+
+
+@media (max-width: 458px) {
+
+   .RP-heading {
+    line-height: 4rem;
+    font-size: 4rem;
+  }
+
+  .RP-left-panel {
+    padding-left: 1rem;
+    padding-top: 2rem;
+  }
+    .RP-left-panel p {
+      font-size: 1.5rem;
+
+  }
+  .RP-main-container{
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+    .RP-sub-container{
+    padding-left: 0rem;
+    padding-right: 0rem;
+  }
+    .RP-Main-Header{
+      font-size: 1.5rem;
+  }
+
+}
+
+
+  
