@@ -170,7 +170,7 @@ const App = () => {
      } catch (error) {
        console.error("Error updating address:", error);
      }
-   };
+   }
 
 
   
