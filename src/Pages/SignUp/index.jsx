@@ -35,8 +35,8 @@ const SignUp = () => {
         }
       );
       if (response.status === 201) {
-        const { access, refresh, user_id } = response.data;
-        localStorage.setItem("userId", user_id);
+        const { access, refresh, id } = response.data;
+        localStorage.setItem("userId", id);
         localStorage.setItem("accessToken", access);
         localStorage.setItem("refreshToken", refresh);
 

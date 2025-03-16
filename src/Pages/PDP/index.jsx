@@ -17,13 +17,16 @@ const PropertyDetails = () => {
   const navigate = useNavigate(); 
   const [isScheduleModalOpen, setIsScheduleModalOpen] = useState(false);
 
-  const { addLead } = useContext(DataContext);
+  const { addLead , fetchData} = useContext(DataContext);
 
   const location = useLocation();
   const { product } = location.state || {};
 
-  const userId = Number(localStorage.getItem("userId"));
+  const userId = Number(localStorage.getItem("userId")) ;
   const accessToken = localStorage.getItem("accessToken");
+
+
+  console.log(userId , accessToken , "checj userdata")
 
   const handleWislistSubmit = async (e) => {
     e.preventDefault();
@@ -53,6 +56,7 @@ const PropertyDetails = () => {
       if (response.ok) {
         alert("Lead Liked successfully!");
         // onClose();
+        fetchData();
       } else {
         const errorData = await response.json();
         alert(
@@ -94,10 +98,11 @@ const PropertyDetails = () => {
       if (response.ok) {
         alert("Lead Added to Cart successfully!");
         // onClose();
+        fetchData();
       } else {
         const errorData = await response.json();
         alert(
-          `Failed to save address (Error ${response.status}): ${
+          `Failed to save lead (Error ${response.status}): ${
             errorData.message || "Unknown error"
           }`
         );

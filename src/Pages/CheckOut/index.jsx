@@ -17,6 +17,9 @@ const Index = () => {
   const { Address, loading, error, fetchAddresses, AllLeads, Profile , setLeads } =
     useContext(DataContext);
 
+
+    console.log(AllLeads , 'allleads')
+
    const [addresses, setAddresses] = useState(Address || []);
    const [paymentSuccess, setPaymentSuccess] = useState(null);
   
@@ -677,10 +680,16 @@ const Index = () => {
           <div>
             <button
               type="button"
-              style={{color:'purple' , padding:"10px 15px" , backgroundColor:'green'}}
-              onClick={handleOrder}>
-                Continue Payment
-              </button>
+              style={{
+                color: "white",
+                padding: "10px 15px",
+                backgroundColor: "#1E485B",
+                borderRadius:5
+              }}
+              onClick={handleOrder}
+            >
+              Continue Payment
+            </button>
           </div>
         </div>
       </div>
