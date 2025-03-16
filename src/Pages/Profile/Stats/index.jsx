@@ -23,7 +23,7 @@ const Stats = () => {
         <div className="stat-icon">
           <AiOutlineDownload size={22} />
         </div>
-        <h3>24</h3>
+        <h3>0</h3>
         <p>Downloads</p>
       </div>
       <div className="stat-card">
