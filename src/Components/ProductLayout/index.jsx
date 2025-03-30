@@ -9,22 +9,23 @@ import { CiHeart } from "react-icons/ci";
 import "./index.css";
 
 import { DataContext } from "../../ContextAPI";
+import {useAuth} from '../../AuthContext'
 
-export default function ProductDisplay({ products }) {
+import { RxCrossCircled } from "react-icons/rx";
+
+
+export default function ProductDisplay({ products, showDeleteButton, onDelete }) {
   const [preview, setPreview] = useState(null);
   const [likedProducts, setLikedProducts] = useState(new Set());
   const navigate = useNavigate();
 
-    const { fetchData } = useContext(DataContext);
+  const { fetchData } = useContext(DataContext);
 
   const handleClick = (product) => {
     navigate("/PDP", { state: { product } });
   };
 
-  const userId = Number(localStorage.getItem("userId"));
-  const accessToken = localStorage.getItem("accessToken");
-
-
+  const { userId , accessToken} = useAuth();
 
 
   const handleLikeSubmit = async (e, productId) => {
@@ -36,7 +37,7 @@ export default function ProductDisplay({ products }) {
       return;
     }
 
-    const payload = { user_id: userId, lead_id: productId };
+    const payload = { user_id: +userId, lead_id: productId };
 
     try {
       const response = await fetch(
@@ -85,8 +86,19 @@ export default function ProductDisplay({ products }) {
             onClick={() => handleClick(product)}
             className="product-card"
           >
+            {showDeleteButton && (
+              <button
+                style={{ position: "absolute", top: 15, right: 15 }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onDelete && onDelete(product.id);
+                }}
+              >
+                <RxCrossCircled />
+              </button>
+            )}
             <img
-              src="https://bookmyinteriorlead.com/wp-content/uploads/2020/11/NEW-WEBSITE-THEME-LEAD-IMAGE.jpg"
+              src={product.image_url}
               alt={product.name}
               className="product-image"
             />

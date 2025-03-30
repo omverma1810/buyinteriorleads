@@ -8,6 +8,7 @@ import { LuPhone } from "react-icons/lu";
 import { CiMail } from "react-icons/ci";
 import { IoCheckmark } from "react-icons/io5";
 import { DataContext } from "../../ContextAPI";
+import { useAuth } from "../../AuthContext";
 import { CiLocationOn } from "react-icons/ci";
 
 
@@ -17,10 +18,11 @@ const Index = () => {
   const { Address, loading, error, fetchAddresses, AllLeads, Profile , setLeads } =
     useContext(DataContext);
 
+    const { userId , accessToken} = useAuth()
 
-    console.log(AllLeads , 'allleads')
+    console.log(Address, "check address here");
 
-   const [addresses, setAddresses] = useState(Address || []);
+   const [addresses, setAddresses] = useState(Address);
    const [paymentSuccess, setPaymentSuccess] = useState(null);
   
     useEffect(() => {
@@ -30,7 +32,7 @@ const Index = () => {
     }, [Address]);
 
 
-    console.log(AllLeads , 'allleads');
+    console.log(AllLeads, 'allleads');
 
   const [editingAddressId, setEditingAddressId] = useState(null);
   const [editedAddress, setEditedAddress] = useState(null);
@@ -77,96 +79,128 @@ const Index = () => {
     });
     const [createOrder , setOrder] = useState(null)
   
-    const userId = localStorage.getItem("userId");
-    const accessToken = localStorage.getItem("accessToken");
   
-    console.log("check data", userId, accessToken);
+    console.log("check adress data", formData);
   
-    // Handle input change
-    const handleChange = (e) => {
-      const { name, value } = e.target;
-      setFormData((prevData) => ({
-        ...prevData,
-        [name]: value,
-      }));
-    };
+
+const handleChange = (e) => {
+  const { name, value } = e.target;
+  setFormData((prev) => ({
+    ...prev,
+    [name]: value,
+  }));
+  console.log("Updated formData:", formData);
+};
+
   
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-  
-      if (!userId || !accessToken) {
-        alert("User is not authenticated. Please log in.");
-        return;
-      }
-  
-      const addressData = { ...formData, user_id: userId };
-  
-      console.log(addressData);
-  
-      try {
-        const response = await fetch(
-          "https://buyinteriorapp-ed1e9e8d81f4.herokuapp.com/api/addresses/",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${accessToken}`,
-            },
-            body: JSON.stringify(addressData),
-          }
-        );
-  
-        if (response.ok) {
+   const handleSubmit = async (e) => {
+     e.preventDefault();
+
+     if (!userId || !accessToken) {
+       alert("User is not authenticated. Please log in.");
+       return;
+     }
+
+     const addressData = { ...formData, user_id: userId };
+
+     console.log(addressData, "check in function");
+
+     try {
+       const response = await fetch(
+         "https://buyinteriorapp-ed1e9e8d81f4.herokuapp.com/api/addresses/",
+         {
+           method: "POST",
+           headers: {
+             "Content-Type": "application/json",
+             Authorization: `Bearer ${accessToken}`,
+           },
+           body: JSON.stringify(addressData),
+         }
+       );
+
+       if (response.ok) {
+         alert("Address created successfully!");
+         setFormData({
+           first_name: "",
+           last_name: "",
+           email: "",
+           phone: "",
+           address_type: "Home",
+           city: "",
+           state: "",
+           postcode: "",
+           country: "India",
+           company_name: "",
+           street_address: "",
+           user_id: "",
+         }); 
           fetchData();
-          alert("Address created successfully!");
-          setFormData(null)
-        } else {
-          const errorData = await response.json();
-          alert(
-            `Failed to save address (Error ${response.status}): ${
-              errorData.message || "Unknown error"
-            }`
-          );
-        }
-      } catch (error) {
-        alert("Error: " + error.message);
-      }
-    };
+       } else {
+         const errorData = await response.json();
+         alert(
+           `Failed to save address (Error ${response.status}): ${
+             errorData.message || "Unknown error"
+           }`
+         );
+       }
+     } catch (error) {
+       alert("Error: " + error.message);
+     }
+   };
 
 
-    // quantity code here
-    const [quantities, setQuantities] = useState(
-      AllLeads.reduce((acc, item) => {
-        acc[item.id] = 1; 
-        return acc;
-      }, {})
-    );
+
+    console.log(AllLeads, 'all leads')
+
+
+ const [quantities, setQuantities] = useState(
+   AllLeads.reduce((acc, item) => {
+     const key = AllLeads.length === 1 ? item.id : item.id; 
+     if (key) acc[key] = 1;
+     return acc;
+   }, {})
+ );
 
     const handleQuantityChange = (id, newQuantity) => {
       setQuantities((prevQuantities) => ({
-        ...prevQuantities,
-        [id]: newQuantity,
+        ...prevQuantities, 
+        [id]: newQuantity, 
       }));
-    };
+    }; 
+    
+    
+    console.log(quantities, 'quantities')
+    
+    
+     
+const subtotal = AllLeads.reduce((sum, item) => {
+  const key = AllLeads.length === 1 ? item.id : item.id;
+  if (!key) return sum;
 
-    const subtotal = AllLeads.reduce(
-      (sum, item) => sum + item.price * quantities[item.id],
-      0
-    );
+    let price = parseFloat(item.discount_price.replace("Rs ", "")) || 0;
+
+  const quantity = Number(quantities[key] ?? 1);
+
+  console.log(`Item: ${key}, Price: ${price}, Quantity: ${quantity}`);
+
+  return sum + price * quantity;
+}, 0);
+
+
+
+    console.log(subtotal, "subtotal")
 
     const gstAmount = subtotal * 0.18;
 
-    // Calculate total price including GST
+
     const totalPrice = subtotal + gstAmount;
 
 
     const items = AllLeads.map((lead) => ({
       lead_id: lead.id,
       quantity: quantities[lead.id] || 1,
-      price: lead.price, 
+      price: lead.discount_price.replace("Rs", "").trim(),
     }));
-
-
 
 
     const handleOrder = async () => {
@@ -449,7 +483,7 @@ const Index = () => {
                 <input
                   type="text"
                   name="first_name"
-                  value={formData.first_name}
+                  value={formData?.first_name || ""}
                   onChange={handleChange}
                   required
                   className="form-input"
@@ -612,13 +646,25 @@ const Index = () => {
                           {item.location}
                         </span>
                       </div>
-                      <h2 style={{ padding: 5 }}>₹{item.price}</h2>
+                      <div style={{ padding: 5 }}>
+                        <h2 style={{ fontSize: 15 }}>
+                          ₹{String(item.discount_price).replace(/Rs/g, "")}
+                        </h2>
+                        <h2 style={{ fontSize: 13 }}>
+                          ₹{String(item.price).replace(/Rs/g, "")}
+                        </h2>
+                      </div>
                     </div>
                     <div className="quantity-selector">
                       <button
                         className="quantity-btn"
                         onClick={() =>
-                          handleQuantityChange(item.id, quantities[item.id] - 1)
+                          handleQuantityChange(
+                            AllLeads.length === 1 ? item.id : item.id,
+                            quantities[
+                              AllLeads.length === 1 ? item.id : item.id
+                            ] - 1
+                          )
                         }
                       >
                         -
@@ -626,18 +672,30 @@ const Index = () => {
                       <input
                         type="number"
                         className="quantity-input"
-                        value={quantities[item.id]}
+                        value={
+                          quantities[
+                            AllLeads.length === 1 ? item.id : item.id
+                          ] || 1
+                        }
                         min="1"
                         max="3"
                         onChange={(e) => {
                           const value = Number(e.target.value);
-                          handleQuantityChange(item.id, value);
+                          handleQuantityChange(
+                            AllLeads.length === 1 ? item.id : item.id,
+                            value
+                          );
                         }}
                       />
                       <button
                         className="quantity-btn"
                         onClick={() =>
-                          handleQuantityChange(item.id, quantities[item.id] + 1)
+                          handleQuantityChange(
+                            AllLeads.length === 1 ? item.id : item.id,
+                            quantities[
+                              AllLeads.length === 1 ? item.id : item.id
+                            ] + 1
+                          )
                         }
                       >
                         +
@@ -684,7 +742,7 @@ const Index = () => {
                 color: "white",
                 padding: "10px 15px",
                 backgroundColor: "#1E485B",
-                borderRadius:5
+                borderRadius: 5,
               }}
               onClick={handleOrder}
             >

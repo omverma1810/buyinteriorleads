@@ -11,10 +11,13 @@ import { IoCheckmark } from "react-icons/io5";
 import { DataContext } from "../../../ContextAPI";
 import AddressForm from "./AddressForm";
 
+import { useAuth } from '../../../AuthContext'
+
 const App = () => {
   const { Address, loading, error, fetchAddresses, fetchData } =
     useContext(DataContext);
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const {userId , accessToken} = useAuth();
 
   const [addresses, setAddresses] = useState(Address || []);
 
@@ -139,8 +142,6 @@ const App = () => {
     };
 
 
-      const accessToken = localStorage.getItem("accessToken");
-      const userId = localStorage.getItem("userId");
   
     // Handle Save Click
    const handleSaveClick = async (addressId) => {
@@ -182,7 +183,6 @@ const App = () => {
 
 
 
-    console.log(editedAddress , 'log check')
 
   return (
     <div className="page-container">

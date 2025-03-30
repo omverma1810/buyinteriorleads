@@ -7,15 +7,19 @@ import AppRoutes from './Approutes/index';
 import './App.css';
 
 
+
 import { DataProvider } from "./ContextAPI";
+import { AuthProvider } from "./AuthContext";
 
 const App = () => {
   return (
-    <DataProvider>
-      <Router>
-        <MainApp />
-      </Router>
-    </DataProvider>
+    <AuthProvider>
+      <DataProvider>
+        <Router>
+          <MainApp />
+        </Router>
+      </DataProvider>
+    </AuthProvider>
   );
 };
 

@@ -4,8 +4,11 @@ import "./index.css";
 
 import { DataContext } from "../../../../ContextAPI";
 
+import {useAuth} from '../../../../AuthContext'
+
 const AddressForm = ({ onClose }) => {
   const { fetchData } = useContext(DataContext);
+  const {userId , accessToken} = useAuth();
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
@@ -20,8 +23,6 @@ const AddressForm = ({ onClose }) => {
     address_type: "Home",
   });
 
-  const userId = localStorage.getItem("userId");
-  const accessToken = localStorage.getItem("accessToken");
 
   console.log("check data", userId, accessToken);
 

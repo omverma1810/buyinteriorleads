@@ -6,6 +6,7 @@ import { CiUser } from "react-icons/ci";
 import { CiHeart } from "react-icons/ci";
 
 import { DataContext } from '../../ContextAPI';
+import { useAuth } from '../../AuthContext';
 
 
 const Index = () => {
@@ -71,7 +72,9 @@ const NavLinks = () => (
 
 const CartAndButton = () => {
 
-    const isLoggedIn = localStorage.getItem("accessToken");
+  const { userId } = useAuth();
+
+    const isLoggedIn = userId ? true : false;
      const { wishlist } = useContext(DataContext);
 
     console.log(isLoggedIn)

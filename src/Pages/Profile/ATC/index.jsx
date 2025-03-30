@@ -5,17 +5,18 @@ import "./index.css";
 import { useNavigate } from "react-router-dom";
 
 import ProductDisplay from "../../../Components/ProductLayout";
+import {useAuth} from '../../../AuthContext'
 
 const WishList = () => {
 
   const navigate = useNavigate(); 
   const { loading, error, cart, addLead, AllLeads } = useContext(DataContext);
+  const {userId} = useAuth()
 
 
 
   console.log(AllLeads, "allleads")
 
-  const userId = Number(localStorage.getItem("userId"));
 
   const handleBuyNow = () => {
     addLead(cart);

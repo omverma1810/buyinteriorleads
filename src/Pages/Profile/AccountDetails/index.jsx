@@ -4,7 +4,12 @@ import "./index.css";
 import { DataContext } from "../../../ContextAPI";
 import { useNavigate } from "react-router-dom";
 
+import {useAuth} from '../../../AuthContext'
+
 const AccountDetails = () => {
+
+
+  const { logout } = useAuth();
    const navigate = useNavigate(); 
   const { wishlist, loading, error, orders, cart, Profile } =
     useContext(DataContext);
@@ -38,9 +43,7 @@ const AccountDetails = () => {
       >
         <button
           onClick={() => {
-            localStorage.removeItem("accessToken");
-            localStorage.removeItem("userId");
-            alert("Logged out successfully!");
+            logout();
             navigate('/');
           }}
           className="change-password-button"

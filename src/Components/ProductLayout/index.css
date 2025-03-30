@@ -30,6 +30,7 @@
   transition: transform 0.3s;
   border-radius: 5px;
   overflow: hidden;
+  position: relative; 
 }
 
 .product-card:hover {

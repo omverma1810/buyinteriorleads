@@ -24,7 +24,6 @@ Full-screen container
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #F5F5F6;
   }
 
   .right-side-sub{
@@ -32,7 +31,7 @@ Full-screen container
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
     padding: 10px 15px;
-    width: 50%;
+    width: 25%;
 
   }
   .header-signIn{

@@ -11,6 +11,7 @@ import html2canvas from "html2canvas";
 import { useNavigate } from "react-router-dom";
 
 import { DataContext } from "../../ContextAPI";
+import { useAuth} from '../../AuthContext'
 
 const PropertyDetails = () => {
 
@@ -22,8 +23,8 @@ const PropertyDetails = () => {
   const location = useLocation();
   const { product } = location.state || {};
 
-  const userId = Number(localStorage.getItem("userId")) ;
-  const accessToken = localStorage.getItem("accessToken");
+  const { userId , accessToken} = useAuth();
+
 
 
   console.log(userId , accessToken , "checj userdata")
@@ -36,7 +37,7 @@ const PropertyDetails = () => {
       return;
     }
 
-    const payload = { user_id: userId, lead_id: product.id };
+    const payload = { user_id: +userId, lead_id: product.id };
 
     console.log(payload);
 
@@ -78,7 +79,7 @@ const PropertyDetails = () => {
       return;
     }
 
-    const payload = { user_id: userId, lead_id: product.id, quantity: 3 };
+    const payload = { user_id: +userId, lead_id: product.id, quantity: 3 };
 
     console.log(payload);
 
@@ -142,7 +143,7 @@ const PropertyDetails = () => {
 
 
   const handleBuyNow = () => {
-    addLead(product);
+    addLead([product]);
     if (userId) {
       navigate("/CheckOut");
     } else {
@@ -228,9 +229,6 @@ const PropertyDetails = () => {
                 <p className="requirements-text">{product.requirement}</p>
               </div>
               <div>
-                <button onClick={downloadPDF} style={{ paddingRight: 10 }}>
-                  <AiOutlineDownload size={22} />
-                </button>
                 <button onClick={handleWislistSubmit}>
                   <CiHeart size={22} />
                 </button>

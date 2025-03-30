@@ -1,5 +1,9 @@
 import React, { createContext, useState, useEffect } from "react";
 
+import { useAuth } from "../AuthContext";
+
+
+
 // Create a context
 export const DataContext = createContext();
 
@@ -8,19 +12,22 @@ export const DataProvider = ({ children }) => {
   const [orders, setOrders] = useState([]);
   const [wishlist, setWishlist] = useState([]);
   const [cart, setCart] = useState([]);
+  const [leads , setAllLeads] = useState([])
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [Profile, setProfile] = useState(null);
   const [Address, setAddress] = useState(null);
 
-  const accessToken = localStorage.getItem("accessToken");
-  const userId = localStorage.getItem("userId");
+
+  const { userId, accessToken } = useAuth();
+
+  console.log('usercred', userId , accessToken)
 
 
   const [AllLeads, setLeads] = useState([]);
 
-  const addLead = (newLead) => {
-    setLeads((prevLeads) => [...prevLeads, newLead]);
+  const addLead = (newLeads) => {
+    setLeads((prevLeads) => [...prevLeads, ...newLeads]);
   };
 
   const fetchData = async () => {
@@ -30,6 +37,14 @@ export const DataProvider = ({ children }) => {
     }
     setLoading(true);
     try {
+      //Fetch Leads
+      const LeadsResponse = await fetch(
+        `https://buyinteriorapp-ed1e9e8d81f4.herokuapp.com/api/leads/`
+      );
+      const LeadsData = await LeadsResponse.json();
+      setAllLeads(LeadsData);
+
+
       // Fetch wishlist
       const wishlistResponse = await fetch(
         `https://buyinteriorapp-ed1e9e8d81f4.herokuapp.com/api/wishlists/?user_id=${userId}`,
@@ -46,7 +61,7 @@ export const DataProvider = ({ children }) => {
 
       // Fetch orders
       const OrdersResponse = await fetch(
-        `https://buyinteriorapp-ed1e9e8d81f4.herokuapp.com//api/orders/?user_id=${userId}`,
+        `https://buyinteriorapp-ed1e9e8d81f4.herokuapp.com/api/orders/?user_id=${userId}`,
         {
           method: "GET",
           headers: {
@@ -86,7 +101,6 @@ export const DataProvider = ({ children }) => {
       const profileData = await profileResponse.json();
       setProfile(profileData);
 
-      // Fetch addresses
       const addressResponse = await fetch(
         `https://buyinteriorapp-ed1e9e8d81f4.herokuapp.com/api/addresses/?user_id=${userId}`,
         {
@@ -107,9 +121,11 @@ export const DataProvider = ({ children }) => {
   };
 
   // Fetch data on component mount
-  useEffect(() => {
-    fetchData();
-  }, []);
+useEffect(() => {
+  if (accessToken && userId) {
+    fetchData(); 
+  }
+}, [accessToken, userId]);
 
   return (
     <DataContext.Provider
@@ -125,6 +141,8 @@ export const DataProvider = ({ children }) => {
         addLead,
         AllLeads,
         setLeads,
+        leads,
+        setAllLeads,
       }}
     >
       {children}

@@ -2,11 +2,15 @@ import React, { useState } from "react";
 import "./index.css";
 import axios from "axios";
 
+import {useAuth} from '../../AuthContext'
+
 import { CiUser } from "react-icons/ci";
 
 import { Link, useNavigate, useLocation } from "react-router-dom";
 
 const SignUp = () => {
+
+   const { login } = useAuth();
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -36,10 +40,7 @@ const SignUp = () => {
       );
       if (response.status === 201) {
         const { access, refresh, id } = response.data;
-        localStorage.setItem("userId", id);
-        localStorage.setItem("accessToken", access);
-        localStorage.setItem("refreshToken", refresh);
-
+         login(id, access);
         console.log("Response:", response.data);
         console.log("Login success");
 
@@ -55,9 +56,6 @@ const SignUp = () => {
 
   return (
     <div className="container">
-      <div className="left-side">
-        <img src="/Images/sigin.jpg" alt="Background" />
-      </div>
 
       <div className="right-side">
         <div className="right-side-sub">

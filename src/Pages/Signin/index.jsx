@@ -1,6 +1,11 @@
-import React, { useState } from "react";
+import React, { useState , useContext } from "react";
 import "./index.css";
 import axios from "axios";
+
+import { useAuth } from "../../AuthContext";
+
+import { DataContext } from "../../ContextAPI";
+
 
 import { CiUser } from "react-icons/ci";
 import { Link, useNavigate, useLocation } from "react-router-dom";
@@ -8,6 +13,10 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { login } = useAuth();
+
+    const { fetchData } =
+      useContext(DataContext);
 
   const [credentials, setCredentials] = useState({
     username: "",
@@ -36,12 +45,11 @@ const Login = () => {
       // Check if the response is successful
       if (response.status === 200) {
         const { access, refresh, user_id } = response.data;
-        localStorage.setItem("userId", user_id);
-        localStorage.setItem("accessToken", access);
-        localStorage.setItem("refreshToken", refresh);
+        login(user_id, access);
 
         console.log("Response:", response.data);
         console.log("Login success");
+        fetchData();
 
         // navigate("/Profile");
         navigate(from, { replace: true });
@@ -60,9 +68,6 @@ const Login = () => {
 
   return (
     <div className="container">
-      <div className="left-side">
-        <img src="/Images/sigin.jpg" alt="Background" />
-      </div>
 
       <div className="right-side">
         <div className="right-side-sub">
