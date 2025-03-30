@@ -28,35 +28,37 @@ const Index = () => {
     }, []);
 
     return (
-        <nav className="navbar">
-            <div className="container-H">
+      <nav className="navbar">
+        <div className="container-H">
+          <img className="logo-m" src="/Bil.svg" alt="logo" />
 
-                <img className='logo-m' src='/logoIM.jpeg' alt='logo'/>
-
-                {isMobile ? (
-                    <button className="burger-menu" onClick={() => setMenuOpen(!menuOpen)}>
-                        {menuOpen ? <FaTimes /> : <FaBars />}
-                    </button>
-                ) : (
-                    <div className="nav-links">
-                        <NavLinks />
-                    </div>
-                )}
-
-                {!isMobile && (
-                    <div className="nav-actions">
-                        <CartAndButton />
-                    </div>
-                )}
+          {isMobile ? (
+            <button
+              className="burger-menu"
+              onClick={() => setMenuOpen(!menuOpen)}
+            >
+              {menuOpen ? <FaTimes /> : <FaBars />}
+            </button>
+          ) : (
+            <div className="nav-links">
+              <NavLinks />
             </div>
+          )}
 
-            {isMobile && menuOpen && (
-                <div className="mobile-menu">
-                    <NavLinks />
-                    <CartAndButton />
-                </div>
-            )}
-        </nav>
+          {!isMobile && (
+            <div className="nav-actions">
+              <CartAndButton />
+            </div>
+          )}
+        </div>
+
+        {isMobile && menuOpen && (
+          <div className="mobile-menu">
+            <NavLinks />
+            <CartAndButton />
+          </div>
+        )}
+      </nav>
     );
 };
 
