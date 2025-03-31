@@ -29,6 +29,18 @@ const PropertyDetails = () => {
 
   console.log(userId , accessToken , "checj userdata")
 
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    rating: "",
+    review_text: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
   const handleWislistSubmit = async (e) => {
     e.preventDefault();
 
@@ -113,6 +125,47 @@ const PropertyDetails = () => {
     }
   };
 
+  const handleReviewSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!userId || !accessToken) {
+      alert("User is not authenticated. Please log in.");
+      return;
+    }
+
+    const payload = { formData };
+
+    console.log(payload);
+
+    try {
+      const response = await fetch(
+        `https://buyinteriorapp-ed1e9e8d81f4.herokuapp.com//api/leads/${userId}/reviews/`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+          body: JSON.stringify(payload),
+        }
+      );
+
+      if (response.ok) {
+        alert("Review posted successfully!");
+        fetchData();
+      } else {
+        const errorData = await response.json();
+        alert(
+          `Failed to post Review (Error ${response.status}): ${
+            errorData.message || "Unknown error"
+          }`
+        );
+      }
+    } catch (error) {
+      alert("Error: " + error.message);
+    }
+  };
+
   const downloadPDF = () => {
     const pdf = new jsPDF();
 
@@ -178,7 +231,7 @@ const PropertyDetails = () => {
       <main className="main-content-PDP">
         <div className="property-card">
           <img
-            src="https://bookmyinteriorlead.com/wp-content/uploads/2020/11/NEW-WEBSITE-THEME-LEAD-IMAGE.jpg"
+            src={product.image_url}
             alt="Property Image"
             className="property-image"
           />
@@ -234,13 +287,81 @@ const PropertyDetails = () => {
                 </button>
               </div>
             </div>
+            <div style={{ paddingTop: 30 }}>
+              <h3 className="requirements-title">Submit Your Review</h3>
+              <div>
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Enter your Name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  style={{
+                    width: "100%",
+                    padding: "8px",
+                    border: "1px solid #ccc",
+                    borderRadius: "4px",
+                    marginBottom: "8px",
+                  }}
+                />
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Enter your Email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  style={{
+                    width: "100%",
+                    padding: "8px",
+                    border: "1px solid #ccc",
+                    borderRadius: "4px",
+                    marginBottom: "8px",
+                  }}
+                />
+                <input
+                  type="number"
+                  name="rating"
+                  placeholder="Rating (1-5)"
+                  value={formData.rating}
+                  onChange={handleChange}
+                  min="1"
+                  max="5"
+                  style={{
+                    width: "100%",
+                    padding: "8px",
+                    border: "1px solid #ccc",
+                    borderRadius: "4px",
+                    marginBottom: "8px",
+                  }}
+                />
+                <textarea
+                  name="review_text"
+                  placeholder="Your review"
+                  value={formData.review_text}
+                  onChange={handleChange}
+                  style={{
+                    width: "100%",
+                    padding: "8px",
+                    border: "1px solid #ccc",
+                    borderRadius: "4px",
+                    marginBottom: "8px",
+                    height: "80px",
+                  }}
+                ></textarea>
+                <button onClick={handleReviewSubmit} className="btn-PDP">
+                  submit Review
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </main>
       <div className="buttons-PDP">
-        <button onClick={handleATCSubmit} className="btn-PDP">
-          Add to cart
-        </button>
+        <div style={{ gap: 10, display: "flex" }}>
+          <button onClick={handleATCSubmit} className="btn-PDP">
+            Add to cart
+          </button>
+        </div>
         <button onClick={handleBuyNow} className="btn-PDP">
           Buy Now
         </button>

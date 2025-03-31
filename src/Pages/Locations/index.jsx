@@ -30,9 +30,8 @@ const MainPage = () => {
         setLeads(data.Data);
         setLoading(false);
 
-        // Set the default selected location to the first location
         if (data.Data.length > 0) {
-          setSelectedLocation(data.Data[0].Location); // Set default location
+          setSelectedLocation(data.Data[0].Location);
         }
       })
       .catch((error) => {

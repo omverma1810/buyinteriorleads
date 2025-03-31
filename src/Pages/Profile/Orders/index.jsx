@@ -51,6 +51,7 @@ const OrderCard = ({order}) => {
       doc.text(`Tags: ${lead.tags}`, 10, y + 48);
       doc.text(`Price: ₹${lead.price}`, 10, y + 54);
       doc.text(`Discount Price: ₹${lead.discount_price}`, 10, y + 60);
+      doc.text(`Discount Price: ₹${lead.mobile_number}`, 10, y + 60);
       doc.text(`Available: ${lead.available ? "Yes" : "No"}`, 10, y + 66);
       doc.text(`Sold Out: ${lead.sold_out ? "Yes" : "No"}`, 10, y + 72);
       doc.text(`Created At: ${lead.created_at}`, 10, y + 78);

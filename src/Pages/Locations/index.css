@@ -55,7 +55,8 @@
   padding-right: 13px;
   border-radius: 8px;
   padding-top: 15px;
-  height: 100vh;
+  height: auto;
+  overflow-y: auto;
 }
 
 @media (max-width: 458px) {
