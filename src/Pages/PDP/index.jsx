@@ -125,6 +125,18 @@ const PropertyDetails = () => {
     }
   };
 
+
+   const validateEmail = (email) => {
+     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+     return emailRegex.test(email);
+   };
+
+
+  const validateRating = (rating) => {
+    const validChoices = [1, 2, 3, 4, 5]; 
+    return validChoices.includes(Number(rating));
+  };
+
   const handleReviewSubmit = async (e) => {
     e.preventDefault();
 
@@ -133,13 +145,18 @@ const PropertyDetails = () => {
       return;
     }
 
-    const payload = { formData };
+     let payload = {
+       name: formData.name,
+       email: formData.email,
+       rating: formData.rating,
+       review_text: formData.review_text
+     };
 
     console.log(payload);
 
     try {
       const response = await fetch(
-        `https://buyinteriorapp-ed1e9e8d81f4.herokuapp.com//api/leads/${userId}/reviews/`,
+        `https://buyinteriorapp-ed1e9e8d81f4.herokuapp.com/api/leads/${product.id}/reviews/`,
         {
           method: "POST",
           headers: {
@@ -152,6 +169,12 @@ const PropertyDetails = () => {
 
       if (response.ok) {
         alert("Review posted successfully!");
+        setFormData({
+          name: "",
+          email: "",
+          rating: "",
+          review_text: "",
+        });
         fetchData();
       } else {
         const errorData = await response.json();
@@ -319,7 +342,7 @@ const PropertyDetails = () => {
                   }}
                 />
                 <input
-                  type="number"
+                  type="text"
                   name="rating"
                   placeholder="Rating (1-5)"
                   value={formData.rating}

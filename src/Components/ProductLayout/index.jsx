@@ -14,7 +14,7 @@ import {useAuth} from '../../AuthContext'
 import { RxCrossCircled } from "react-icons/rx";
 
 
-export default function ProductDisplay({ products, showDeleteButton, onDelete }) {
+export default function ProductDisplay({ products, showDeleteButton, onDelete , source }) {
   const [preview, setPreview] = useState(null);
   const [likedProducts, setLikedProducts] = useState(new Set());
   const navigate = useNavigate();
@@ -26,6 +26,49 @@ export default function ProductDisplay({ products, showDeleteButton, onDelete })
   };
 
   const { userId , accessToken} = useAuth();
+
+
+  const handleDelete = async (e, productId) => {
+    e.stopPropagation();
+
+    if (!userId || !accessToken) {
+      alert("User is not authenticated. Please log in.");
+      return;
+    }
+
+    let apiUrl = "";
+    if (source === "wishlist") {
+      apiUrl = `https://buyinteriorapp-ed1e9e8d81f4.herokuapp.com/api/wishlists/${productId}/?user_id=${userId}`;
+    } else if (source === "cart") {
+      apiUrl = `https://buyinteriorapp-ed1e9e8d81f4.herokuapp.com/api/cart/?user_id=${userId}&lead_id=${productId}`;
+    }
+
+    if (!apiUrl) return;
+
+    try {
+      const response = await fetch(apiUrl, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      if (response.ok) {
+        alert("Item deleted successfully!");
+        fetchData();
+      } else {
+        const errorData = await response.json();
+        alert(
+          `Failed to delete (Error ${response.status}): ${
+            errorData.message || "Unknown error"
+          }`
+        );
+      }
+    } catch (error) {
+      alert("Error: " + error.message);
+    }
+  };
 
 
   const handleLikeSubmit = async (e, productId) => {
@@ -89,10 +132,7 @@ export default function ProductDisplay({ products, showDeleteButton, onDelete })
             {showDeleteButton && (
               <button
                 style={{ position: "absolute", top: 15, right: 15 }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onDelete && onDelete(product.id);
-                }}
+                onClick={(e) => handleDelete(e, product.lead_id)}
               >
                 <RxCrossCircled />
               </button>

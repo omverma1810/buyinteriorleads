@@ -15,7 +15,7 @@ import { CiLocationOn } from "react-icons/ci";
 import axios from 'axios'
 
 const Index = () => {
-  const { Address, loading, error, fetchAddresses, AllLeads, Profile , setLeads } =
+  const { Address, loading, error, fetchAddresses, AllLeads, Profile , setLeads  } =
     useContext(DataContext);
 
     const { userId , accessToken} = useAuth()
@@ -233,6 +233,7 @@ const subtotal = AllLeads.reduce((sum, item) => {
 
          if (response.status === 201 || response.status === 200) {
            setLeads([]);
+           fetchData();
            const orderId = response.data.order_id; 
            console.log(orderId, "Order ID received from API");
 

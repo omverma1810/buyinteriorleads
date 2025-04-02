@@ -24,42 +24,149 @@ const OrderCard = ({order}) => {
     alert("Copied to clipboard: " + text);
   };
 
-  const downloadLeadsPDF = () => {
-     if (order.payment_status !== "Paid") return;
-    const matchedLeads = getLeadsForOrder();
-    if (matchedLeads.length === 0) {
-      alert("No leads found for this order.");
-      return;
+const downloadLeadsPDF = () => {
+  if (order.payment_status !== "Paid") return;
+
+  const matchedLeads = getLeadsForOrder();
+  if (matchedLeads.length === 0) {
+    alert("No leads found for this order.");
+    return;
+  }
+
+  console.log(matchedLeads, "matched leads");
+
+  const doc = new jsPDF();
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(16);
+  doc.text("Leads Details", 10, 10);
+
+  let y = 25;
+  const pageHeight = doc.internal.pageSize.height;
+
+  matchedLeads.forEach((lead, index) => {
+    if (y + 100 > pageHeight) {
+      doc.addPage();
+      y = 25;
+      doc.setFontSize(16);
+      doc.text("Leads Details (Continued)", 10, 10);
     }
 
-    console.log(matchedLeads, 'mateched leads')
+    doc.setFontSize(12);
 
-    const doc = new jsPDF();
-    doc.setFontSize(14);
-    doc.text("Leads Details", 10, 10);
+    // Function to format numbers (Indian style)
+    const formatCurrency = (num) => {
+      return num ? `₹${num.toLocaleString("en-IN")}` : "N/A";
+    };
 
-    matchedLeads.forEach((lead, index) => {
-      const y = 20 + index * 50; // Adjust Y position for each lead
-      doc.text(`Lead ID: ${lead.id}`, 10, y);
-      doc.text(`Name: ${lead.name}`, 10, y + 6);
-      doc.text(`Location: ${lead.location}`, 10, y + 12);
-      doc.text(`Property Type: ${lead.property_type}`, 10, y + 18);
-      doc.text(`Property Status: ${lead.property_status}`, 10, y + 24);
-      doc.text(`Service Required On: ${lead.service_required_on}`, 10, y + 30);
-      doc.text(`Budget: ₹${lead.budget}`, 10, y + 36);
-      doc.text(`Requirement: ${lead.requirement}`, 10, y + 42);
-      doc.text(`Tags: ${lead.tags}`, 10, y + 48);
-      doc.text(`Price: ₹${lead.price}`, 10, y + 54);
-      doc.text(`Discount Price: ₹${lead.discount_price}`, 10, y + 60);
-      doc.text(`Discount Price: ₹${lead.mobile_number}`, 10, y + 60);
-      doc.text(`Available: ${lead.available ? "Yes" : "No"}`, 10, y + 66);
-      doc.text(`Sold Out: ${lead.sold_out ? "Yes" : "No"}`, 10, y + 72);
-      doc.text(`Created At: ${lead.created_at}`, 10, y + 78);
-      doc.text("--------------------------------------------", 10, y + 84);
-    });
+    // Create a structured format
+    const keyX = 10; // X position for keys
+    const valueX = 80; // X position for values (increased for better spacing)
 
-    doc.save(`Leads_Order_${order.id}.pdf`);
-  };
+
+    const formatDate = (dateString) => {
+      if (!dateString) return "N/A";
+      const date = new Date(dateString);
+      return date.toLocaleDateString("en-IN", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true,
+      });
+    };
+
+    doc.setFont("helvetica", "bold");
+    doc.text(`Lead ID:`, keyX, y);
+    doc.setFont("helvetica", "normal");
+    doc.text(`${lead.id || "N/A"}`, valueX, y);
+
+    doc.setFont("helvetica", "bold");
+    doc.text(`Name:`, keyX, y + 8);
+    doc.setFont("helvetica", "normal");
+    doc.text(`${lead.name || "N/A"}`, valueX, y + 8);
+
+    doc.setFont("helvetica", "bold");
+    doc.text(`Location:`, keyX, y + 16);
+    doc.setFont("helvetica", "normal");
+    doc.text(`${lead.location || "N/A"}`, valueX, y + 16);
+
+    doc.setFont("helvetica", "bold");
+    doc.text(`Property Type:`, keyX, y + 24);
+    doc.setFont("helvetica", "normal");
+    doc.text(`${lead.property_type || "N/A"}`, valueX, y + 24);
+
+    doc.setFont("helvetica", "bold");
+    doc.text(`Property Status:`, keyX, y + 32);
+    doc.setFont("helvetica", "normal");
+    doc.text(`${lead.property_status || "N/A"}`, valueX, y + 32);
+
+    doc.setFont("helvetica", "bold");
+    doc.text(`Service Required On:`, keyX, y + 40);
+    doc.setFont("helvetica", "normal");
+    doc.text(`${lead.service_required_on || "N/A"}`, valueX, y + 40);
+
+    doc.setFont("helvetica", "bold");
+    doc.text(`Budget:`, keyX, y + 48);
+    doc.setFont("helvetica", "normal");
+    doc.text(formatCurrency(lead.budget), valueX, y + 48);
+
+    doc.setFont("helvetica", "bold");
+    doc.text(`Requirement:`, keyX, y + 56);
+    doc.setFont("helvetica", "normal");
+    doc.text(`${lead.requirement || "N/A"}`, valueX, y + 56);
+
+    doc.setFont("helvetica", "bold");
+    doc.text(`Tags:`, keyX, y + 64);
+    doc.setFont("helvetica", "normal");
+    doc.text(`${lead.tags || "N/A"}`, valueX, y + 64);
+
+    doc.setFont("helvetica", "bold");
+    doc.text(`Price:`, keyX, y + 72);
+    doc.setFont("helvetica", "normal");
+    doc.text(formatCurrency(lead.price), valueX, y + 72);
+
+    doc.setFont("helvetica", "bold");
+    doc.text(`Discount Price:`, keyX, y + 80);
+    doc.setFont("helvetica", "normal");
+    doc.text(formatCurrency(lead.discount_price), valueX, y + 80);
+
+    doc.setFont("helvetica", "bold");
+    doc.text(`Mobile Number:`, keyX, y + 88);
+    doc.setFont("helvetica", "normal");
+    doc.text(`${lead.mobile_number || "N/A"}`, valueX, y + 88);
+
+    doc.setFont("helvetica", "bold");
+    doc.text(`Available:`, keyX, y + 96);
+    doc.setFont("helvetica", "normal");
+    doc.text(`${lead.available ? "Yes" : "No"}`, valueX, y + 96);
+
+    doc.setFont("helvetica", "bold");
+    doc.text(`Sold Out:`, keyX, y + 104);
+    doc.setFont("helvetica", "normal");
+    doc.text(`${lead.sold_out ? "Yes" : "No"}`, valueX, y + 104);
+
+    doc.setFont("helvetica", "bold");
+    doc.text(`Created At:`, keyX, y + 112);
+    doc.setFont("helvetica", "normal");
+    doc.text(formatDate(lead.created_at), valueX, y + 112);
+
+    // Add a separator line
+    doc.setFont("helvetica", "bold");
+    doc.text(
+      "------------------------------------------------------------",
+      keyX,
+      y + 120
+    );
+
+    y += 130;
+  });
+
+  doc.save(`Leads_Order_${order.id}.pdf`);
+};
+
+
+
 
   return (
     <div className="order-card">

@@ -26,9 +26,10 @@ export const DataProvider = ({ children }) => {
 
   const [AllLeads, setLeads] = useState([]);
 
-  const addLead = (newLeads) => {
-    setLeads((prevLeads) => [...prevLeads, ...newLeads]);
-  };
+const addLead = (newLeads) => {
+  setLeads(newLeads);
+};
+
 
   const fetchData = async () => {
     if (!accessToken) {

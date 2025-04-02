@@ -6,6 +6,7 @@ import ProductLayout from "../../Components/ProductLayout";
 const MainPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedLocation, setSelectedLocation] = useState(null);
+  const [filterStatus, setFilterStatus] = useState("all");
 
   const products = Array.from({ length: 30 }, (_, i) => `Product ${i + 1}`);
 
@@ -46,6 +47,15 @@ const MainPage = () => {
     (location) => location.Location === selectedLocation
   );
 
+
+    const filteredLeads =
+      selectedLocationData?.Leads?.filter((lead) => {
+        if (filterStatus === "all") return true;
+        if (filterStatus === "available") return lead.available;
+        if (filterStatus === "soldout") return lead.sold_out;
+        return true;
+      }) || [];
+
   console.log("selected data", selectedLocationData);
 
   return (
@@ -74,11 +84,37 @@ const MainPage = () => {
           </ul>
         </div>
         <div className="right-L">
-          <div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              width: "100%",
+            }}
+          >
             <h2>Leads in {selectedLocation}</h2>
+            <div className="filter-buttons">
+              <button
+                className={filterStatus === "all" ? "active" : "inactive"}
+                onClick={() => setFilterStatus("all")}
+              >
+                All
+              </button>
+              <button
+                className={filterStatus === "available" ? "active" : "inactive"}
+                onClick={() => setFilterStatus("available")}
+              >
+                Available
+              </button>
+              <button
+                className={filterStatus === "soldout" ? "active" : "inactive"}
+                onClick={() => setFilterStatus("soldout")}
+              >
+                Sold Out
+              </button>
+            </div>
           </div>
           {selectedLocationData && selectedLocationData.Leads && (
-            <ProductLayout products={selectedLocationData.Leads} />
+            <ProductLayout products={filteredLeads} />
           )}
         </div>
       </div>

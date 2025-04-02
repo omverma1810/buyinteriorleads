@@ -32,6 +32,7 @@
   list-style-type: none;
   padding: 0;
   gap: 2px;
+  padding-top: 10px;
 }
 
 .li-L {
@@ -58,6 +59,23 @@
   height: auto;
   overflow-y: auto;
 }
+.filter-buttons{
+  gap: 10px;
+  display:flex;
+}
+.active{
+  background-color: #1E485B;
+  color: white;
+  padding: 5px 15px;
+  border-radius: 16px;
+}
+.inactive{
+  background-color: white;
+  color: #1E485B;
+  padding: 5px 15px;
+  border-radius: 16px;
+  border: 1px solid #1E485B;
+}
 
 @media (max-width: 458px) {
 
@@ -65,13 +83,25 @@
       overflow-y: scroll;
   }
 
+  .container-L{
+    display: flex;
+    flex-direction: column;
+  }
+
   .left-L{
-    display: none;
+    display: block;
+    width: 100%;
   }
 
   .right-L{
     width: 100%;
   }
+
+  .ul-L{
+    display: flex;
+    overflow-x: scroll;
+}
+
 
 }
 
