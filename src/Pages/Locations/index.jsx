@@ -48,13 +48,13 @@ const MainPage = () => {
   );
 
 
-    const filteredLeads =
-      selectedLocationData?.Leads?.filter((lead) => {
-        if (filterStatus === "all") return true;
-        if (filterStatus === "available") return lead.available;
-        if (filterStatus === "soldout") return lead.sold_out;
-        return true;
-      }) || [];
+const filteredLeads =
+  selectedLocationData?.Leads?.filter((lead) => {
+    if (filterStatus === "all") return true;
+    if (filterStatus === "available") return lead.status === "available";
+    if (filterStatus === "soldout") return lead.status === "sold_out";
+    return true;
+  }) || [];
 
   console.log("selected data", selectedLocationData);
 
